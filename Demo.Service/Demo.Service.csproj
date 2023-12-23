@@ -10,9 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\" />
     <Folder Include="Implement\" />
-    <Folder Include="Models\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 
