@@ -1,0 +1,14 @@
+D:\haoyu\source\Demo\Demo.Service\bin\Debug\netcoreapp3.1\Demo.Service.deps.json
+D:\haoyu\source\Demo\Demo.Service\bin\Debug\netcoreapp3.1\Demo.Service.dll
+D:\haoyu\source\Demo\Demo.Service\bin\Debug\netcoreapp3.1\Demo.Service.pdb
+D:\haoyu\source\Demo\Demo.Service\obj\Debug\netcoreapp3.1\Demo.Service.csprojAssemblyReference.cache
+D:\haoyu\source\Demo\Demo.Service\obj\Debug\netcoreapp3.1\Demo.Service.AssemblyInfoInputs.cache
+D:\haoyu\source\Demo\Demo.Service\obj\Debug\netcoreapp3.1\Demo.Service.AssemblyInfo.cs
+D:\haoyu\source\Demo\Demo.Service\obj\Debug\netcoreapp3.1\Demo.Service.csproj.CoreCompileInputs.cache
+D:\haoyu\source\Demo\Demo.Service\obj\Debug\netcoreapp3.1\Demo.Service.dll
+D:\haoyu\source\Demo\Demo.Service\obj\Debug\netcoreapp3.1\Demo.Service.pdb
+D:\haoyu\source\Demo\Demo.Service\bin\Debug\netcoreapp3.1\Demo.Common.dll
+D:\haoyu\source\Demo\Demo.Service\bin\Debug\netcoreapp3.1\Demo.Repository.dll
+D:\haoyu\source\Demo\Demo.Service\bin\Debug\netcoreapp3.1\Demo.Common.pdb
+D:\haoyu\source\Demo\Demo.Service\bin\Debug\netcoreapp3.1\Demo.Repository.pdb
+D:\haoyu\source\Demo\Demo.Service\obj\Debug\netcoreapp3.1\Demo.Service.csproj.CopyComplete

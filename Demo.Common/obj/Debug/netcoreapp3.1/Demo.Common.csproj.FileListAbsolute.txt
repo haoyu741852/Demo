@@ -1,0 +1,9 @@
+D:\haoyu\source\Demo\Demo.Common\bin\Debug\netcoreapp3.1\Demo.Common.deps.json
+D:\haoyu\source\Demo\Demo.Common\bin\Debug\netcoreapp3.1\Demo.Common.dll
+D:\haoyu\source\Demo\Demo.Common\bin\Debug\netcoreapp3.1\Demo.Common.pdb
+D:\haoyu\source\Demo\Demo.Common\obj\Debug\netcoreapp3.1\Demo.Common.AssemblyInfoInputs.cache
+D:\haoyu\source\Demo\Demo.Common\obj\Debug\netcoreapp3.1\Demo.Common.AssemblyInfo.cs
+D:\haoyu\source\Demo\Demo.Common\obj\Debug\netcoreapp3.1\Demo.Common.csproj.CoreCompileInputs.cache
+D:\haoyu\source\Demo\Demo.Common\obj\Debug\netcoreapp3.1\Demo.Common.dll
+D:\haoyu\source\Demo\Demo.Common\obj\Debug\netcoreapp3.1\Demo.Common.pdb
+D:\haoyu\source\Demo\Demo.Common\obj\Debug\netcoreapp3.1\Demo.Common.csprojAssemblyReference.cache
