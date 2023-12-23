@@ -16,13 +16,12 @@ namespace Demo.Service.Implement
         private readonly IMapper _mapper;
         private readonly IBookRepository _bookRepository;
 
-        public BookService()
+        public BookService(IBookRepository bookRepository)
         {
-            var config = new MapperConfiguration(cfg =>
-                cfg.AddProfile<ServiceMappings>());
+            var config = new MapperConfiguration(cfg => cfg.AddProfile<ServiceMappings>());
 
             this._mapper = config.CreateMapper();
-            this._bookRepository = new BookRepository();
+            this._bookRepository = bookRepository;
         }
 
         /// <summary>
@@ -33,9 +32,7 @@ namespace Demo.Service.Implement
         {
             var condition = this._mapper.Map<BookSearchInfo, BookSearchCondition>(info);
             var data = this._bookRepository.GetList(condition);
-
             var result = this._mapper.Map<IEnumerable<BookDataModel>, IEnumerable<BookResultModel>>(data);
-
             return result;
         }
 

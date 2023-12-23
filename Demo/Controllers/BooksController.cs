@@ -22,15 +22,14 @@ namespace Demo.Controllers
         private readonly IMapper _mapper;
         private readonly IBookService _bookService;
 
-        public BooksController(DemoContext context)
+        public BooksController(DemoContext context, IBookService bookService)
         {
             _context = context;
             //ef
-            var config = new MapperConfiguration(cfg =>
-            cfg.AddProfile<ControllerMappings>());
+            var config = new MapperConfiguration(cfg => cfg.AddProfile<ControllerMappings>());
 
             this._mapper = config.CreateMapper();
-            this._bookService = new BookService();
+            this._bookService = bookService;
         }
 
         // GET: Books

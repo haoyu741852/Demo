@@ -14,7 +14,13 @@ namespace Demo.Repository.Implement
         /// <summary>
         /// 連線字串
         /// </summary>
-        private readonly string _connectString = @"Server=(localdb)\MSSQLLocalDB;Database=DemoContext-801384d6-ba4d-43a9-887c-1c41fae63236;Trusted_Connection=True;MultipleActiveResultSets=true";
+        //private readonly string _connectString = @"Server=(localdb)\MSSQLLocalDB;Database=DemoContext-801384d6-ba4d-43a9-887c-1c41fae63236;Trusted_Connection=True;MultipleActiveResultSets=true";
+        private readonly string _connectString;
+
+        public BookRepository(string connectString)
+        {
+            this._connectString = connectString;
+        }
 
         /// <summary>
         /// 查詢資料清單

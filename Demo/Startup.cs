@@ -10,6 +10,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Demo.Data;
+using Demo.Repository.Interface;
+using Demo.Repository.Implement;
+using Demo.Service.Interface;
+using Demo.Service.Implement;
 
 namespace Demo
 {
@@ -25,6 +29,16 @@ namespace Demo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // 註冊 ICardRepository 的實作為 CardRepository
+            services.AddScoped<IBookService, BookService>();
+            // 註冊 ICardRepository 的實作為 CardRepository
+            //services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IBookRepository>(sp =>
+            {
+                var connectString = Configuration.GetConnectionString("DemoContext");
+                return new BookRepository(connectString);
+            });
+
             services.AddControllersWithViews();
 
             services.AddDbContext<DemoContext>(options =>
