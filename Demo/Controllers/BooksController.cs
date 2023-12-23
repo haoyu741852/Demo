@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,54 +8,52 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Demo.Data;
 using Demo.Models;
+using Demo.Mappings;
+using Demo.Service.Interface;
+using Demo.Service.Implement;
+using Demo.Service.Models;
 
 namespace Demo.Controllers
 {
     public class BooksController : Controller
     {
         private readonly DemoContext _context;
+        //ef
+        private readonly IMapper _mapper;
+        private readonly IBookService _bookService;
 
         public BooksController(DemoContext context)
         {
             _context = context;
+            //ef
+            var config = new MapperConfiguration(cfg =>
+            cfg.AddProfile<ControllerMappings>());
+
+            this._mapper = config.CreateMapper();
+            this._bookService = new BookService();
         }
 
         // GET: Books
         public async Task<IActionResult> Index(string searchString)
         {
-            if (_context.Book == null)
-            {
-                return Problem("Books is null");
-            }
-            else
-            {
-                var books = from b in _context.Book
-                            select b;
+            var info = new BookSearchInfo { Name = searchString };
 
-                if (!String.IsNullOrEmpty(searchString))
-                {
-                    books = books.Where(b => b.Name!.Contains(searchString));
-                }
+            var bookresult = this._bookService.GetList(info);
+            var book = this._mapper.Map<IEnumerable<BookResultModel>, IEnumerable<Book>>(bookresult);
 
-                return View(await books.ToListAsync());
-            }
+            return View(book);
         }
 
         // GET: Books/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var bookresult = this._bookService.Get(id);
 
-            var book = await _context.Book
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var book = this._mapper.Map<BookResultModel, Book>(bookresult);
             if (book == null)
             {
                 return NotFound();
             }
-
             return View(book);
         }
 
@@ -73,22 +72,24 @@ namespace Demo.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(book);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var bookinfo = this._mapper.Map<Book, BookInfo>(book);
+
+                var isSuccess = this._bookService.Insert(bookinfo);
+                if (isSuccess)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(book);
             }
             return View(book);
         }
 
         // GET: Books/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var bookresult = this._bookService.Get(id);
 
-            var book = await _context.Book.FindAsync(id);
+            var book = this._mapper.Map<BookResultModel, Book>(bookresult);
             if (book == null)
             {
                 return NotFound();
@@ -112,35 +113,34 @@ namespace Demo.Controllers
             {
                 try
                 {
-                    _context.Update(book);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BookExists(book.Id))
+                    var bookresult = this._bookService.Get(id);
+                    if (bookresult is null)
                     {
                         return NotFound();
                     }
-                    else
+
+                    var bookinfo = this._mapper.Map<Book, BookInfo>(book);
+                    var isSuccess = this._bookService.Update(id, bookinfo);
+                    if (isSuccess)
                     {
-                        throw;
+                        return RedirectToAction(nameof(Index));
                     }
+                    return View(book);
                 }
-                return RedirectToAction(nameof(Index));
+                catch (DbUpdateConcurrencyException)
+                {
+                    return View(book);
+                }
             }
             return View(book);
         }
 
         // GET: Books/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var bookresult = this._bookService.Get(id);
 
-            var book = await _context.Book
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var book = this._mapper.Map<BookResultModel, Book>(bookresult);
             if (book == null)
             {
                 return NotFound();
@@ -154,9 +154,13 @@ namespace Demo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var book = await _context.Book.FindAsync(id);
-            _context.Book.Remove(book);
-            await _context.SaveChangesAsync();
+            var bookresult = this._bookService.Get(id);
+            if (bookresult is null)
+            {
+                return NotFound();
+            }
+            this._bookService.Delete(id);
+
             return RedirectToAction(nameof(Index));
         }
 

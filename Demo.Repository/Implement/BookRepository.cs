@@ -14,7 +14,7 @@ namespace Demo.Repository.Implement
         /// <summary>
         /// 連線字串
         /// </summary>
-        private readonly string _connectString = @"Server=(localdb)\\MSSQLLocalDB;Database=DemoContext-801384d6-ba4d-43a9-887c-1c41fae63236;Trusted_Connection=True;MultipleActiveResultSets=true";
+        private readonly string _connectString = @"Server=(localdb)\MSSQLLocalDB;Database=DemoContext-801384d6-ba4d-43a9-887c-1c41fae63236;Trusted_Connection=True;MultipleActiveResultSets=true";
 
         /// <summary>
         /// 查詢資料清單
@@ -68,7 +68,7 @@ namespace Demo.Repository.Implement
             @"		
                 SELECT * 
                 FROM Book 
-                Where Id = @Id
+                Where Id = @id
             ";
 
             var parameters = new DynamicParameters();
@@ -135,7 +135,7 @@ namespace Demo.Repository.Implement
                    ,[ReleaseDate] = @ReleaseDate
                    ,[Price] = @Price
                 WHERE
-                    Id = @Id
+                    Id = @id
             ";
 
             var parameters = new DynamicParameters();
@@ -160,7 +160,7 @@ namespace Demo.Repository.Implement
             var sql =
             @"
                 DELETE FROM Book
-                WHERE Id = @Id
+                WHERE Id = @id
             ";
 
             var parameters = new DynamicParameters();
